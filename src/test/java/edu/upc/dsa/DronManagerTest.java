@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class GameManagerTest {
-    GameManager manager;
+    DronManager manager;
 
     //private HttpServer server;
     //private WebTarget target;

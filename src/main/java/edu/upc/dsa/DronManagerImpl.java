@@ -9,12 +9,12 @@ import java.util.Map;
 
 public class GameManagerImpl implements GameManager {
     private static GameManager instance;
-    protected HashMap<String, User> User;
+    protected HashMap<String, Dron> User;
 
     HashMap<String, String> Plays = new HashMap<String, String>();
     LinkedList<String> listPlays = new LinkedList<String>();
-    LinkedList<User> listUsers = new LinkedList<User>();
-    LinkedList<Product> listProducts = new LinkedList<Product>();
+    LinkedList<Dron> listUsers = new LinkedList<Dron>();
+    LinkedList<Almacen> listProducts = new LinkedList<Almacen>();
 
     final static Logger logger = Logger.getLogger(GameManagerImpl.class);
 
@@ -37,13 +37,13 @@ public class GameManagerImpl implements GameManager {
 
     //---------FUNCIONES------------------
     public String createPlay(String id, int N_Team, int P_Players) {
-        String status = new Match().getStatus();
+        String status = new Piloto().getStatus();
         //Comprobar si hay partida iniciada con ese id
         if (listPlays.contains(id)) {
             logger.error("Ya existe este id:" + id);
             status = "NO_INICIADO";
         } else {
-            Play playNew = new Play(id, N_Team, P_Players);
+            Mantenimiento playNew = new Mantenimiento(id, N_Team, P_Players);
             listPlays.add(id);
             logger.info("Se ha creado el juego con" + N_Team + "equipos de" + P_Players + "jugadores.");
             status = "INICIADO_EN_PREPARACIÓN";
@@ -53,14 +53,14 @@ public class GameManagerImpl implements GameManager {
 
     //------------ADDUSER-------------------------
     public void addUser(String idUser, String name, String surname, double dsaCoins) {
-        User user;
+        Dron user;
         logger.info("Comprobación de si ya existe un usuario con id: " + idUser);
 
         if (listUsers.contains(idUser)) {
             logger.error("Ya existe este usuario");
         } else {
             logger.info("Creamos nuevo usuario con id " + idUser);
-            user = new User(idUser, name, surname, dsaCoins);
+            user = new Dron(idUser, name, surname, dsaCoins);
             //Lo añadimos a la lista, ultimo elemento
             listUsers.addLast(user);
         }
@@ -72,14 +72,14 @@ public class GameManagerImpl implements GameManager {
 
     //---------------ADDPRODCUT-------------------------
     public void addProduct(String idProduct, String description, double price) {
-        Product product;
+        Almacen product;
         logger.info("Comprobamos la existencia del producto con id: " + idProduct);
 
         if (listProducts.contains(idProduct)) {
             logger.error("Ya existe este producto");
         } else {
             logger.info("Añadimos nuevo producto con id " + idProduct);
-            product = new Product(idProduct, description, price);
+            product = new Almacen(idProduct, description, price);
             //Lo añadimos a la lista, ultimo elemento
             listProducts.addLast(product);
         }
@@ -99,7 +99,7 @@ public class GameManagerImpl implements GameManager {
 
     //--------------STARTMATCH---------------
     public String startMatch(String idPlay, String idUser) {
-        String status = new Match().getStatus();
+        String status = new Piloto().getStatus();
         boolean start = false;
         //Comprobar q user no esté ya en otra partida
         if (listPlays.contains(idPlay) && listUsers.contains(idUser)) {
@@ -123,7 +123,7 @@ public class GameManagerImpl implements GameManager {
     //--------------CONSULTSTATUS--------------------
     public String consultStatus(String idPlay) {
         String res = null;
-        String status = new Match().getStatus();
+        String status = new Piloto().getStatus();
         if (listPlays.contains(idPlay)) {
             logger.info("Ya existe una partida con este id" + idPlay);
             res = status;
@@ -138,7 +138,7 @@ public class GameManagerImpl implements GameManager {
         int res = 0;
         if (listUsers.contains(idUser) && Plays.containsKey(idUser)) {
             logger.info("El usuario con te id" + idUser + "se encuentra en una partida");
-            int life = new Match().getLife();
+            int life = new Piloto().getLife();
             res = life;
         } else {
             logger.info("No existe el usuario o no se encunetra en ninguna partida");
@@ -149,7 +149,7 @@ public class GameManagerImpl implements GameManager {
 
     //-------------FINISHPLAY----------------------
     public String finishPlay(String idPlay) {
-        String status = new Match().getStatus();
+        String status = new Piloto().getStatus();
         if (listPlays.contains(idPlay) && Plays.containsKey(idPlay)) {
             logger.info("Ya existe una partida con este id" + idPlay);
             for (Map.Entry<String, String> entry : Plays.entrySet()) {

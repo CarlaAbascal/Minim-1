@@ -1,4 +1,0 @@
-package edu.upc.dsa.models;
-
-public enum Status {NO_INICIADO, INICIADO_EN_PREPARACION, INICIADO_EN_FUNCIONAMIENTO, FINALIZADO
-}

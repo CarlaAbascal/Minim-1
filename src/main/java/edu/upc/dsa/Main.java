@@ -1,6 +1,7 @@
 package edu.upc.dsa;
 
 import io.swagger.jaxrs.config.BeanConfig;
+import io.swagger.jersey.listing.ApiListingResourceJSON;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -34,7 +35,7 @@ public class Main {
         beanConfig.setHost("localhost:8080");
         beanConfig.setBasePath("/dsaApp");
         beanConfig.setContact("support@example.com");
-        beanConfig.setDescription("REST API for Tracks Manager");
+        beanConfig.setDescription("REST API for Game Manager");
         beanConfig.setLicenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html");
         beanConfig.setResourcePackage("edu.upc.dsa.services");
         beanConfig.setTermsOfServiceUrl("http://www.example.com/resources/eula");
@@ -54,7 +55,7 @@ public class Main {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        final HttpServer server = startServer();
+       final HttpServer server = startServer();
 
         StaticHttpHandler staticHttpHandler = new StaticHttpHandler("./public/");
         server.getServerConfiguration().addHttpHandler(staticHttpHandler, "/");

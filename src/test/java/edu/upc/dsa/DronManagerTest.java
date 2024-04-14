@@ -1,30 +1,28 @@
 package edu.upc.dsa;
 
+import org.glassfish.grizzly.http.server.HttpServer;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class GameManagerTest {
+import javax.ws.rs.client.WebTarget;
+
+public class DronManagerTest {
     DronManager manager;
 
-    //private HttpServer server;
-    //private WebTarget target;
+    private HttpServer server;
+    private WebTarget target;
 
     @Before
-    public void addUserTest() {
-        manager.addUser("1","Carla","Abascal",0);
-        manager.addUser("2","Ines","Mas",0);
-        Assert.assertEquals(2,manager.numUsers());
+    public void addDronTest() {
+        manager.addDron("1","Dron1","fabricante1","modelo1");
+        manager.addDron("2","Dron2","fabricante2","modelo1");
+        Assert.assertEquals(2,manager.numDrones());
     }
-    public void addProductTest(){
-        manager.addProduct("1","Pócima",15);
-        manager.addProduct("2","Escudo",70);
-        Assert.assertEquals(2,manager.numProducts());
+    public void addPilotoTest(){
+        manager.addPiloto("1","Carla","Abascal");
+        manager.addPiloto("2","Luis","Angel");
+        Assert.assertEquals(2,manager.numPrilotos());
     }
-    @Test
-    public void consultStatusTest(){
-        manager.consultStatus("1");
-        Assert.assertEquals("INICIADO_EN_FUNCIONAMIENTO",manager.consultStatus("1"));
 
-    }
 }
